@@ -5,12 +5,13 @@
     <parent>
         <artifactId>yaoling-spring-boot-starter</artifactId>
         <groupId>io.yaoling</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.yaoling</groupId>
     <artifactId>aliyun-oss-spring-boot-starter</artifactId>
+    <version>${parent.version}</version>
 
     <dependencies>
         <dependency>

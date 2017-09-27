@@ -7,10 +7,7 @@
     <groupId>io.yaoling</groupId>
     <artifactId>yaoling-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>../aliyun-mns-spring-boot-starter</module>
-    </modules>
+    <version>1.0.1</version>
 
     <dependencies>
         <dependency>

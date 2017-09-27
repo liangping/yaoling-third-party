@@ -5,13 +5,12 @@
     <parent>
         <artifactId>yaoling-spring-boot-starter</artifactId>
         <groupId>io.yaoling</groupId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../yaoling-spring-boot-starter/pom.xml</relativePath>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>io.yaoling</groupId>
     <artifactId>aliyun-mns-spring-boot-starter</artifactId>
+    <version>${parent.version}</version>
 
     <dependencies>
         <dependency>
