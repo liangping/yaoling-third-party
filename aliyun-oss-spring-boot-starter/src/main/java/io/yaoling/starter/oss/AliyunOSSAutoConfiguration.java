@@ -22,12 +22,12 @@ import org.springframework.context.annotation.Configuration;
 public class AliyunOSSAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(AliyunOSSFileStorage.class)//当容器中没有指定Bean的情况下
-    public AliyunOSSFileStorage bookService(){
+    public AliyunOSSFileStorage aliyunOSSFileStorage(){
         return new AliyunOSSFileStorage();
     }
     @Bean
     @ConditionalOnMissingBean(FileNaming.class)//当容器中没有指定Bean的情况下
-    public FileNaming nameStrategy(){
+    public FileNaming fileNaming(){
         return new UUIDFileNaming();
     }
 }
