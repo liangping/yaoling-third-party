@@ -8,6 +8,9 @@
     <artifactId>yaoling-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>../aliyun-mns-spring-boot-starter</module>
+    </modules>
 
     <dependencies>
         <dependency>
