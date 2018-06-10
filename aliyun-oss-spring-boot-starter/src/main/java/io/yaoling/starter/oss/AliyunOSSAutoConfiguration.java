@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties(AliyunOssPropertiesConfig.class)//指定类的配置
 @ConditionalOnClass(AliyunOSSFileStorage.class)
-@ConditionalOnProperty(prefix = "spring.aliyun.oss",value = "enable",matchIfMissing = true)//指定的属性是否有指定的值
+@ConditionalOnProperty(prefix = "yaoling.starter.aliyun.oss",value = "enable",matchIfMissing = true)//指定的属性是否有指定的值
 public class AliyunOSSAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(AliyunOSSFileStorage.class)//当容器中没有指定Bean的情况下

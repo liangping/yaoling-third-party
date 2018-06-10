@@ -4,18 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.yaoling</groupId>
+    <groupId>io.yaoling.starter</groupId>
     <artifactId>yaoling-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>io.yaoling</groupId>
-            <artifactId>yaoling-third-party-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+    <name>yaoling-spring-boot-starter</name>
+    <description>This is a parent project for all yaoling starter projects</description>
+    <url>https://github.com/liangping/yaoling-third-party</url>
 
     <dependencyManagement>
         <dependencies> <!-- The parent should provide all that -->
@@ -26,18 +22,97 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>io.yaoling.starter</groupId>
+                <artifactId>y</artifactId>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <distributionManagement>
-        <repository>
-            <id>yaoling-releases</id>
-            <name>Releases</name>
-            <url>https://repo.yaoling.io/repository/maven-releases</url>
-        </repository>
         <snapshotRepository>
-            <id>yaoling-snapshot</id>
-            <name>Snapshot</name>
-            <url>https://repo.yaoling.io/repository/maven-snapshots</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com/liangping/yaoling-third-party.git</connection>
+        <developerConnection>scm:git:git://github.com/liangping/yaoling-third-party.git</developerConnection>
+        <url>https://github.com/liangping/yaoling-third-party</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Ping Liang</name>
+            <email>liangping@iyaoling.com</email>
+            <organization>Yaoling Network</organization>
+            <organizationUrl>http://www.iyaoling.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

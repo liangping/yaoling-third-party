@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties(AliyunMessageSenderPropertiesConfig.class)//指定类的配置
 @ConditionalOnClass(AliyunMessageSender.class)
-@ConditionalOnProperty(prefix = "spring.aliyun.oss",value = "enable",matchIfMissing = true)//指定的属性是否有指定的值
+@ConditionalOnProperty(prefix = "yaoling.starter.aliyun.oss",value = "enable",matchIfMissing = true)//指定的属性是否有指定的值
 public class AliyunMessageSenderAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(AliyunMessageSender.class)//当容器中没有指定Bean的情况下

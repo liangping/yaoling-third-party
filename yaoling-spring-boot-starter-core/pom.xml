@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>yaoling-spring-boot-starter</artifactId>
+        <groupId>io.yaoling.starter</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>yaoling-spring-boot-starter-core</artifactId>
+    <packaging>jar</packaging>
+
+    <name>yaoling-spring-boot-starter-core</name>
+    <description>This is a common starter interface library</description>
+    <url>https://github.com/liangping/yaoling-third-party</url>
+
+</project>

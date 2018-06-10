@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * 江苏摇铃网络科技有限公司，版权所有。
  * Copyright (C) 2015-2017 All Rights Reserved.
  */
-@ConfigurationProperties(prefix = "spring.aliyun.oss")
+@ConfigurationProperties(prefix = "yaoling.starter.aliyun.oss")
 public class AliyunOssPropertiesConfig {
     private boolean enable = false;
     private String endpoint="";
