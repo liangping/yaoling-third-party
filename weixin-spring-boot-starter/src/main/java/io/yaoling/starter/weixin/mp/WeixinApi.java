@@ -107,9 +107,9 @@ public class WeixinApi {
             throws YaolingHttpException {
 
         String tokenserver = String.format("%s/component/%s/accesstoken?key=%s",
-                config.getTokenServerHost(),
+                config.getAccessTokenHost(),
                 config.getComponentAppId(),
-                config.getTokenServerKey());
+                config.getAccessTokenKey());
         String component_access_token = HttpHelper.textGet(tokenserver);
 
         StringBuffer url = new StringBuffer();
@@ -269,10 +269,10 @@ public class WeixinApi {
      */
     public String getJsapiTicket() throws YaolingHttpException {
         return HttpHelper.textGet(String.format("%s/app/%s/getticket?appid=%s&type=jsapi&key=%s",
-                config.getTokenServerHost(),
+                config.getAccessTokenHost(),
                 config.getComponentAppId(),
                 config.getAppid(),
-                config.getTokenServerKey()));
+                config.getAccessTokenKey()));
     }
 
     public Map<String, String> wxJsConfig(String url) throws YaolingHttpException{

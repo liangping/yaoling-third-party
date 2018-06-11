@@ -77,7 +77,7 @@ public class WeixinComponentApi {
 	 */
 	public String api_component_token() throws YaolingHttpException{
 		if(this.access_token==null){
-			String tokenserver = String.format("%s/component/%s/accesstoken?key=%s", config.getTokenServerHost(),this.appid,config.getTokenServerKey());
+			String tokenserver = String.format("%s/component/%s/accesstoken?key=%s", config.getAccessTokenHost(),this.appid,config.getAccessTokenKey());
 			logger.debug("Weixin component mp get a new component token:{}", tokenserver);
 			return HttpHelper.textGet(tokenserver);
 		}else{

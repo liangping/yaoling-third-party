@@ -18,12 +18,23 @@ public class WeixinPropertiesConfig {
     private boolean enable = false;
     private String appid;
     private String appsecret;
+    private String token;
+    private String encodingAesKey;
     private String componentAppId;
     private String componentAppSecret;
-    private String tokenServerHost;
-    private String tokenServerKey;
+    private String accessTokenHost;
+    private String accessTokenKey;
     private String mode = MODE_DIRECT;
     private String tokenCache = CACHE_LOCAL;
+    private String payKey;
+
+    public String getPayKey() {
+        return payKey;
+    }
+
+    public void setPayKey(String payKey) {
+        this.payKey = payKey;
+    }
 
     public String getTokenCache() {
         return tokenCache;
@@ -33,20 +44,36 @@ public class WeixinPropertiesConfig {
         this.tokenCache = tokenCache;
     }
 
-    public String getTokenServerHost() {
-        return tokenServerHost;
+    public String getToken() {
+        return token;
     }
 
-    public void setTokenServerHost(String tokenServerHost) {
-        this.tokenServerHost = tokenServerHost;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getTokenServerKey() {
-        return tokenServerKey;
+    public String getEncodingAesKey() {
+        return encodingAesKey;
     }
 
-    public void setTokenServerKey(String tokenServerKey) {
-        this.tokenServerKey = tokenServerKey;
+    public void setEncodingAesKey(String encodingAesKey) {
+        this.encodingAesKey = encodingAesKey;
+    }
+
+    public String getAccessTokenHost() {
+        return accessTokenHost;
+    }
+
+    public void setAccessTokenHost(String accessTokenHost) {
+        this.accessTokenHost = accessTokenHost;
+    }
+
+    public String getAccessTokenKey() {
+        return accessTokenKey;
+    }
+
+    public void setAccessTokenKey(String accessTokenKey) {
+        this.accessTokenKey = accessTokenKey;
     }
 
     public boolean isEnable() {
