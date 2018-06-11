@@ -20,8 +20,8 @@ public class MessageListenerLocator {
 	
 	/**
 	 * 获取当前消息的所有监听器。
-	 * @param type
-	 * @return
+	 * @param type 消息类型
+	 * @return 监听列表
 	 */
 	protected List<MessageListener> getListeners(MessageType type){
 		return cached.get(type);
@@ -29,7 +29,7 @@ public class MessageListenerLocator {
 	
 	/**
 	 * 注册消息监听器。
-	 * @param listener
+	 * @param listener 消息监听
 	 */
 	public void register(MessageListener listener){
 		if(cached.containsKey(listener.type())){

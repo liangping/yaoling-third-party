@@ -43,7 +43,6 @@ public class WeixinComponentApi {
 
 	/**
 	 * 第三方平台方可以在自己的网站首页中放置“微信公众号登录授权”的入口，引导公众号运营者进入第三方平台授权页。
-	 * 网址为https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=xxxx&pre_auth_code=xxxxx&redirect_uri=xxxx，
 	 * 该网址中第三方平台方需要提供第三方平台方appid、预授权码和回调URI
 	 * @return 授权地址
 	 * @throws YaolingHttpException http异常
@@ -109,7 +108,8 @@ public class WeixinComponentApi {
 	 * 
 	 * 该API用于使用授权码换取授权公众号的授权信息，并换取authorizer_access_token和authorizer_refresh_token。 
 	 * 授权码的获取，需要在用户在第三方平台授权页中完成授权流程后，在回调URI中通过URL参数提供给第三方平台方。
-	 * 
+	 *
+	 * @param auth_code 授权码
 	 * @return 授权信息
 	 * @throws YaolingHttpException http异常
 	 */
@@ -163,6 +163,7 @@ public class WeixinComponentApi {
 	 *  1	开启多客服
 	 *  
 	 * @param authorizer_appid 被授权公众号ID
+     * @param name 选项名
 	 * @return 值
 	 * @throws YaolingHttpException http异常
 	 */
@@ -196,6 +197,8 @@ public class WeixinComponentApi {
 	*  1	开启多客服
 	*  
 	 * @param authorizer_appid 被授权公众号ID
+     * @param name 选项名
+     * @param value 选项值
 	 * @return 是否成功
 	 * @throws YaolingHttpException http异常
 	 */

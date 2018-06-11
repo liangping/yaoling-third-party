@@ -40,12 +40,13 @@ public class WeixinApi {
 
 
     public String getAccessToken() throws YaolingHttpException {
-        if (accesstoken == null) {
+        if (accesstoken == null|| accesstoken.getExpired() > System.currentTimeMillis()) {
 
             if(WeixinPropertiesConfig.CACHE_LOCAL.equalsIgnoreCase(config.getTokenCache())) {
                 this.accesstoken = HttpHelper.objectGet(
                         String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
                                 config.getAppid(), config.getAppsecret()), AccessToken.class);
+                this.accesstoken.setExpired(System.currentTimeMillis()+accesstoken.getExpired());//更新过期时间
             }else {
                 //accesstoken = HttpHelper.textGet(
                 //String.format("%s/app/%s/accesstoken?appid=%s&key=%s",
@@ -73,14 +74,14 @@ public class WeixinApi {
     }
 
     /**
-     * @param openid
+     * @param openid openid of weixin
      * @return 返回JSON格式 { "subscribe": 1, "openid":
      * "o6_bmjrPTlm6_2sgVt7hMZOPfL2M", "nickname": "Band", "sex": 1,
      * "language": "zh_CN", "city": "广州", "province": "广东", "country":
      * "中国", "headimgurl":
      * "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/0"
      * , "subscribe_time": 1382694957 }
-     * @throws YaolingHttpException
+     * @throws YaolingHttpException http异常
      */
     public WeixinUser getUser(String openid) throws YaolingHttpException {
         StringBuffer url = new StringBuffer();
@@ -97,11 +98,11 @@ public class WeixinApi {
     /**
      * 根据微信授权请求的授权码获取网页AccessToken.
      *
-     * @param code
+     * @param code 授权码
      * @return { "access_token":"ACCESS_TOKEN", "expires_in":7200,
      * "refresh_token":"REFRESH_TOKEN", "openid":"OPENID",
      * "scope":"SCOPE" }
-     * @throws YaolingHttpException
+     * @throws YaolingHttpException http异常
      */
     public WebAccessToken getWebAccessToken(String code)
             throws YaolingHttpException {
@@ -142,7 +143,7 @@ public class WeixinApi {
      * @param url 接口地址
      * @param scope 授权域
      * @return 授权地址
-     * @throws YaolingHttpException
+     * @throws YaolingHttpException http异常
      */
     public String getWebAuthorizeCodeURL(String url, SCOPE scope) throws YaolingHttpException {
 
@@ -174,9 +175,9 @@ public class WeixinApi {
     /**
      * 发送文本消息
      *
-     * @param openid
-     * @param content
-     * @throws YaolingHttpException
+     * @param openid 用户的openid
+     * @param content 消息内容
+     * @throws YaolingHttpException http异常
      */
     public void sendCustomMessage(String openid, String content) throws YaolingHttpException {
 
@@ -190,9 +191,9 @@ public class WeixinApi {
     /**
      * 发送自定义图文消息
      *
-     * @param openid
-     * @param articles
-     * @throws YaolingHttpException
+     * @param openid 用户openid
+     * @param articles 文章列表
+     * @throws YaolingHttpException http异常
      */
     public void sendCustomMessage(String openid, List<News> articles) throws YaolingHttpException {
     	
@@ -254,7 +255,7 @@ public class WeixinApi {
      *
      * @param serviceType 公众号类型
      * @param verifyType  认证状态
-     * @return
+     * @return api级别
      */
     public static boolean hasAdvanceApi(int serviceType, int verifyType) {
         return (serviceType == 2 && verifyType >= 0) ? true : false;
@@ -264,8 +265,8 @@ public class WeixinApi {
      *
      * 从token服务器获取jsapi ticket
      *
-     * @return ticket
-     * @throws YaolingHttpException
+     * @return ticket 凭证
+     * @throws YaolingHttpException http异常
      */
     public String getJsapiTicket() throws YaolingHttpException {
         return HttpHelper.textGet(String.format("%s/app/%s/getticket?appid=%s&type=jsapi&key=%s",
@@ -304,7 +305,7 @@ public class WeixinApi {
      * 创建永久二维码。
      * @param sceneid 场景ID
      * @return 二位码
-     * @throws YaolingHttpException
+     * @throws YaolingHttpException http异常
      */
     public QRTicket createQRLimitTicket(String sceneid) throws YaolingHttpException{
     	QRTicketInput input = new QRTicketInput();

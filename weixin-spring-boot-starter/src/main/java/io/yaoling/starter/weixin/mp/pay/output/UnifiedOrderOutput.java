@@ -93,6 +93,7 @@ public class UnifiedOrderOutput extends XmlOutput {
 	}
 	/**
 	 * 调用接口提交的交易类型，取值如下：JSAPI，NATIVE，APP，
+	 * @param trade_type JSAPI，NATIVE，APP
 	 */
 	public void setTrade_type(String trade_type) {
 		this.trade_type = trade_type;

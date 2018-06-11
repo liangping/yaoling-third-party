@@ -75,8 +75,8 @@ public class WeixinPayApi {
 	 * @param brand 品牌名称
 	 * @param device 设备号或支付人ID
 	 * @param payKey 支付API密钥
-	 * @return
-	 * @throws YaolingHttpException
+	 * @return 微信支付相关配置
+	 * @throws YaolingHttpException http异常
 	 */
 	public MicroPayOutput createMicroPayOrder(PayTransaction transaction,String brand,String device, String payKey) throws YaolingHttpException {
 		MicroPayInput input = new MicroPayInput();

@@ -2,10 +2,10 @@ package io.yaoling.starter.weixin.message;
 
 /**
  * 微信消息格式<br>
- * &lt;ToUserName>&lt;![CDATA[toUser]]>&lt;/ToUserName><br>
- * &lt;FromUserName>&lt;![CDATA[fromUser]]>&lt;/FromUserName><br>
- * &lt;CreateTime>12345678&lt;/CreateTime> <br>
- * &lt;MsgType>&lt;![CDATA[news]]>&lt;/MsgType><br>
+ * &lt;ToUserName&gt;&lt;![CDATA[toUser]]&gt;&lt;/ToUserName&gt;<br>
+ * &lt;FromUserName&gt;&lt;![CDATA[fromUser]]&gt;&lt;/FromUserName&gt;<br>
+ * &lt;CreateTime&gt;12345678&lt;/CreateTime&gt; <br>
+ * &lt;MsgType&gt;&lt;![CDATA[news]]&gt;&lt;/MsgType&gt;<br>
  * 
  * @author liangping
  * 

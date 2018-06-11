@@ -106,7 +106,7 @@ public class UnifiedOrderQueryOutput extends XmlOutput {
 	public String cash_fee_type;
 	
 	/**
-	 * 代金券金额 (“代金券”金额<=订单金额，订单金额-“代金券”金额=现金支付金额，详见支付金额)
+	 * 代金券金额 (“代金券”金额&lt;=订单金额，订单金额-“代金券”金额=现金支付金额，详见支付金额)
 	 */
 	public int coupon_fee;
 	
@@ -132,8 +132,6 @@ public class UnifiedOrderQueryOutput extends XmlOutput {
 	
 	/**
 	 * 交易状态描述
-	 * @return
-	 * @author dingShaoXiong
 	 */
 	public String trade_state_desc;
 	
@@ -190,6 +188,7 @@ public class UnifiedOrderQueryOutput extends XmlOutput {
 	}
 	/**
 	 * 调用接口提交的交易类型，取值如下：JSAPI，NATIVE，APP，
+	 * @param trade_type JSAPI，NATIVE，APP
 	 */
 	public void setTrade_type(String trade_type) {
 		this.trade_type = trade_type;
