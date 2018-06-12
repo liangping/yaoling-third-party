@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.yaoling.starter</groupId>
     <artifactId>aliyun-mns-spring-boot-starter</artifactId>
-
+     <!--drt -->
     <dependencies>
         <dependency>
             <groupId>io.yaoling.starter</groupId>
