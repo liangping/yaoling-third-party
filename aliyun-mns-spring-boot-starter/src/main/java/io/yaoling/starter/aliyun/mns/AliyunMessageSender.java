@@ -1,6 +1,13 @@
 package io.yaoling.starter.aliyun.mns;
 
-
+import com.aliyun.mns.client.CloudAccount;
+import com.aliyun.mns.client.CloudTopic;
+import com.aliyun.mns.client.MNSClient;
+import com.aliyun.mns.common.ServiceException;
+import com.aliyun.mns.model.BatchSmsAttributes;
+import com.aliyun.mns.model.MessageAttributes;
+import com.aliyun.mns.model.RawTopicMessage;
+import com.aliyun.mns.model.TopicMessage;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
@@ -8,24 +15,51 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import io.yaoling.third.exception.ThirdPartyException;
+import io.yaoling.third.message.MessageSender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 /**
- * Created on 17/6/7.
- * 短信API产品的DEMO程序,工程中包含了一个SmsDemo类，直接通过
- * 执行main函数即可体验短信产品API功能(只需要将AK替换成开通了云通信-短信产品功能的AK即可)
- * 工程依赖了2个jar包(存放在工程的libs目录下)
- * 1:aliyun-java-sdk-core.jar
- * 2:aliyun-java-sdk-dysmsapi.jar
- *
- * 备注:工程编码采用UTF-8
- * 国际短信发送请勿参照此DEMO
+ * Created by liangping on 2017/9/27 0027.
+ * <p>
+ * 江苏摇铃网络科技有限公司，版权所有。
+ * Copyright (C) 2015-2017 All Rights Reserved.
  */
-public class SendMessage {
+public class AliyunMessageSender {
 
     //产品名称:云通信短信API产品,开发者无需替换
     static final String product = "Dysmsapi";
     //产品域名,开发者无需替换
     static final String domain = "dysmsapi.aliyuncs.com";
+
+    private static Logger logger = LoggerFactory.getLogger(AliyunMessageSender.class);
+
+    @Autowired
+    private AliyunMessageSenderPropertiesConfig config;
+
+
+    public SendSmsResponse sendMessage(String phone, String code)throws com.aliyuncs.exceptions.ClientException {
+        AliyunMessageSenderPropertiesConfig sms = new AliyunMessageSenderPropertiesConfig();
+        sms.setPhoneNumbers(phone);
+        sms.setTemplateCode(config.getTemplateCode());
+        sms.setTemplateParam("{\"code\":\""+code+"\"}");
+        sms.setAccessKeyId(config.getAccessKeyId());
+        sms.setAccessKeySecret(config.getAccessKeySecret());
+        sms.setSignName(config.getSignName());
+        SendSmsResponse response = null;
+        try {
+            response =sendMessage(sms);
+        } catch (com.aliyun.mns.common.ClientException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 
 
     /**
@@ -34,7 +68,7 @@ public class SendMessage {
      * @return
      * @throws ClientException
      */
-    public static SendSmsResponse sendMessage(SmsData sendSms) throws ClientException {
+    public static SendSmsResponse sendMessage(AliyunMessageSenderPropertiesConfig sendSms) throws ClientException {
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
