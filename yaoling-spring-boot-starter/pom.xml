@@ -7,7 +7,7 @@
     <groupId>io.yaoling.starter</groupId>
     <artifactId>yaoling-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>yaoling-spring-boot-starter</name>
     <description>This is a parent project for all yaoling starter projects</description>
