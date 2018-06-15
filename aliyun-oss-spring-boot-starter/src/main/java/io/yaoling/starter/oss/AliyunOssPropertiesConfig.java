@@ -11,19 +11,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "yaoling.starter.aliyun.oss")
 public class AliyunOssPropertiesConfig {
-    private boolean enable = false;
+    //private boolean enable = false;
     private String endpoint="";
     private String accessKeyId="";
     private String accessKeySecret="";
     private String bucketName="";
 
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
+//    public boolean isEnable() {
+//        return enable;
+//    }
+//
+//    public void setEnable(boolean enable) {
+//        this.enable = enable;
+//    }
 
     public String getEndpoint() {
         return endpoint;
