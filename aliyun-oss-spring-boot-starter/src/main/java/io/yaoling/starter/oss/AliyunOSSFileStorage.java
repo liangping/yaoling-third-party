@@ -1,11 +1,12 @@
 package io.yaoling.starter.oss;
 
 import com.aliyun.oss.OSSClient;
+import io.yaoling.third.file.FileNaming;
 import io.yaoling.third.file.FileStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.InputStream;
-import java.util.UUID;
+
 
 /**
  * Created by liangping on 2017/9/27 0027.
@@ -18,11 +19,14 @@ public class AliyunOSSFileStorage implements FileStorage{
     @Autowired
     private AliyunOssPropertiesConfig config;
 
+    @Autowired
+    private FileNaming nameStrategy;
+
     public String save(InputStream is, String toName) {
         OSSClient ossClient = new OSSClient(config.getEndpoint(), config.getAccessKeyId(), config.getAccessKeySecret());
-        String key = UUID.randomUUID().toString();
-        ossClient.putObject(config.getBucketName(), toName, is );
+        ossClient.putObject(config.getBucketName(), nameStrategy.getName(toName), is );
         ossClient.shutdown();
-        return toName;
+        return new StringBuilder(config.getEndpoint()).append(toName).toString();
     }
+
 }
