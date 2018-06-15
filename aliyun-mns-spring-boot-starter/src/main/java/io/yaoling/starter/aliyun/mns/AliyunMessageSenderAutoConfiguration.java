@@ -23,5 +23,7 @@ public class AliyunMessageSenderAutoConfiguration {
     public AliyunMessageSender aliyunMessageSender() {
         return new AliyunMessageSender();
     }
+
+
 }
 

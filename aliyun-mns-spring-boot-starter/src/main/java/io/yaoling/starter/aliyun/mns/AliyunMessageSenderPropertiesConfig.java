@@ -10,27 +10,37 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "yaoling.starter.aliyun.mns")
 public class AliyunMessageSenderPropertiesConfig {
-    private boolean enable = false;
-    private String endpoint="";
-    private String accessKeyId="";
-    private String accessKeySecret="";
-    private String topic="";
-    private String signature;
+    private String phoneNumbers;//电话号码，多个用逗号分割，批量上限为1000个手机号码
 
-    public boolean isEnable() {
-        return enable;
+    private String templateCode;//短信模板id
+
+    private String templateParam;//短信模板内容
+    private String accessKeyId;//key
+    private String accessKeySecret;//secret
+    private String signName;//短信签名
+
+    public String getPhoneNumbers() {
+        return phoneNumbers;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setPhoneNumbers(String phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
     }
 
-    public String getEndpoint() {
-        return endpoint;
+    public String getTemplateCode() {
+        return templateCode;
     }
 
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
+    public void setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+    }
+
+    public String getTemplateParam() {
+        return templateParam;
+    }
+
+    public void setTemplateParam(String templateParam) {
+        this.templateParam = templateParam;
     }
 
     public String getAccessKeyId() {
@@ -49,19 +59,11 @@ public class AliyunMessageSenderPropertiesConfig {
         this.accessKeySecret = accessKeySecret;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getSignName() {
+        return signName;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
+    public void setSignName(String signName) {
+        this.signName = signName;
     }
 }
