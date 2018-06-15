@@ -182,7 +182,7 @@ public class WeixinApi {
     public void sendCustomMessage(String openid, String content) throws YaolingHttpException {
 
         StringBuffer url = new StringBuffer();
-        url.append("https://mp.weixin.qq.com/cgi-bin/message/custom/send?access_token=").append(getAccessToken());
+        url.append("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=").append(getAccessToken());
 
         HttpHelper.objectPost(url.toString(), new CustomTextMessageInput(openid, content));
 
