@@ -83,6 +83,22 @@ public class MessageListenerController {
         logger.debug("appid:{}, signature:{}, timestamp:{}, nonce:{}, openid:{}, message:{}",
                 new Object[]{ config.getAppid(),signature,timestamp,nonce,openid,message });
 
+        //签名验证
+        String[] params = { nonce, timestamp, config.getToken()};
+        Arrays.sort(params);
+
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < params.length; i++) {
+            sb.append(params[i]);
+        }
+        try {
+            String sign = SHA1.encode(sb.toString());
+            if(!signature.equals(sign)) return "failure";
+        }catch (NoSuchAlgorithmException e){
+            return "failure";
+        }
+
+        //消息处理
         DefaultMessage received = ObjectConverter.xml2Obj(message, DefaultMessage.class);
         //对加密的消息体进行解密
         if(received != null && received.getEncrypt()!=null && received.getEncrypt().length()>0){
