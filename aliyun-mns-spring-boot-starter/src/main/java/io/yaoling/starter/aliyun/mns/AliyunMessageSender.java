@@ -44,10 +44,10 @@ public class AliyunMessageSender {
     private AliyunMessageSenderPropertiesConfig config;
 
 
-    public SendSmsResponse sendMessage(String phone, String code)throws com.aliyuncs.exceptions.ClientException {
+    public SendSmsResponse sendMessage(String phone, String code,String templateCode)throws com.aliyuncs.exceptions.ClientException {
         AliyunMessageSenderPropertiesConfig sms = new AliyunMessageSenderPropertiesConfig();
         sms.setPhoneNumbers(phone);
-        sms.setTemplateCode(config.getTemplateCode());
+        sms.setTemplateCode(templateCode);
         sms.setTemplateParam("{\"code\":\""+code+"\"}");
         sms.setAccessKeyId(config.getAccessKeyId());
         sms.setAccessKeySecret(config.getAccessKeySecret());
@@ -60,7 +60,22 @@ public class AliyunMessageSender {
         }
         return response;
     }
-
+    public SendSmsResponse sendMessage(String phone, String code,String templateCode,String spareParam)throws com.aliyuncs.exceptions.ClientException {
+        AliyunMessageSenderPropertiesConfig sms = new AliyunMessageSenderPropertiesConfig();
+        sms.setPhoneNumbers(phone);
+        sms.setTemplateCode(templateCode);
+        sms.setTemplateParam("{\"code\":\""+code+"\",\"spareParam\":\"" + spareParam + "\"}");
+        sms.setAccessKeyId(config.getAccessKeyId());
+        sms.setAccessKeySecret(config.getAccessKeySecret());
+        sms.setSignName(config.getSignName());
+        SendSmsResponse response = null;
+        try {
+            response =sendMessage(sms);
+        } catch (com.aliyun.mns.common.ClientException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 
     /**
      *
