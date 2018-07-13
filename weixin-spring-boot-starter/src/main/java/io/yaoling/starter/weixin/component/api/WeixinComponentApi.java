@@ -38,7 +38,7 @@ public class WeixinComponentApi {
 	 * 客户端调用使用无参数构造函数	
 	 */
 	public WeixinComponentApi() {
-		this.appid 		= config.getComponentAppId();
+		//this.appid 		= config.getComponentAppId();
 	}
 
 	/**

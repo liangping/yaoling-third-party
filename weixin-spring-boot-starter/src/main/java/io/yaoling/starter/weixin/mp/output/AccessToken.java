@@ -1,10 +1,16 @@
 package io.yaoling.starter.weixin.mp.output;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AccessToken {
-	
+
+    @JsonProperty("errcode")
 	private int errorCode = 0;
+    @JsonProperty("errmsg")
 	private String errorMessage;
+	@JsonProperty("access_token")
 	private String accessToken;
+	@JsonProperty("expires_in")
 	private long expired;
 	
 	public AccessToken() {
