@@ -1,4 +1,4 @@
-package io.yaoling.starter.weixin.listener;
+package io.yaoling.starter.weixin.listener.message;
 
 import io.yaoling.common.utils.ObjectConverter;
 import io.yaoling.starter.weixin.WeixinPropertiesConfig;
@@ -10,7 +10,6 @@ import io.yaoling.starter.weixin.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

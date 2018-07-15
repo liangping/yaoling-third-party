@@ -1,7 +1,10 @@
 package io.yaoling.starter.weixin;
 
 import io.yaoling.starter.weixin.component.api.WeixinComponentApi;
-import io.yaoling.starter.weixin.listener.*;
+import io.yaoling.starter.weixin.listener.message.ConfigSuccessMessageListener;
+import io.yaoling.starter.weixin.listener.message.MessageListener;
+import io.yaoling.starter.weixin.listener.message.MessageListenerLocator;
+import io.yaoling.starter.weixin.listener.payment.PayNotifyListenerLocator;
 import io.yaoling.starter.weixin.mp.WeixinApi;
 import io.yaoling.starter.weixin.mp.WeixinPayApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -45,6 +48,12 @@ public class WeixinAutoConfiguration {
     @ConditionalOnMissingBean(MessageListenerLocator.class)
     public MessageListenerLocator messageListenerLocator(){
         return new MessageListenerLocator();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(PayNotifyListenerLocator.class)
+    public PayNotifyListenerLocator payNotifyListenerLocator(){
+        return new PayNotifyListenerLocator();
     }
 
     @Bean

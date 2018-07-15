@@ -1,5 +1,7 @@
 package io.yaoling.starter.weixin.mp.output;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 /**
@@ -19,6 +21,7 @@ import java.util.List;
  * @author liangping
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WeixinUser extends JsonOutput {
 	private int subscribe=0;
 	private String openid;
@@ -30,11 +33,12 @@ public class WeixinUser extends JsonOutput {
 	private String country;
 	private String headimgurl;
 	private int subscribe_time;
-	private String privilege;
+	private List<String> privilege;
 	private String unionid; 
 	private String remark;
 	private String groupid;
 	private List<String> tagid_list;
+	private String subscribe_scene;
 	
 	public List<String> getTagid_list() {
 		return tagid_list;
@@ -102,10 +106,10 @@ public class WeixinUser extends JsonOutput {
 	public void setSubscribe_time(int subscribe_time) {
 		this.subscribe_time = subscribe_time;
 	}
-	public String getPrivilege() {
+	public List<String> getPrivilege() {
 		return privilege;
 	}
-	public void setPrivilege(String privilege) {
+	public void setPrivilege(List<String> privilege) {
 		this.privilege = privilege;
 	}
 	public String getUnionid() {
@@ -125,5 +129,13 @@ public class WeixinUser extends JsonOutput {
 	}
 	public void setGroupid(String groupid) {
 		this.groupid = groupid;
+	}
+
+	public String getSubscribe_scene() {
+		return subscribe_scene;
+	}
+
+	public void setSubscribe_scene(String subscribe_scene) {
+		this.subscribe_scene = subscribe_scene;
 	}
 }

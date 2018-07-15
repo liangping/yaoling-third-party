@@ -1,4 +1,4 @@
-package io.yaoling.starter.weixin.listener;
+package io.yaoling.starter.weixin.listener.message;
 
 import io.yaoling.starter.weixin.message.EventMessage;
 import io.yaoling.starter.weixin.message.Message;

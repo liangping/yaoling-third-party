@@ -1,4 +1,4 @@
-package io.yaoling.starter.weixin.listener;
+package io.yaoling.starter.weixin.listener.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,4 +1,4 @@
-package io.yaoling.starter.weixin.listener;
+package io.yaoling.starter.weixin.listener.payment;
 
 import io.yaoling.common.exception.YaolingHttpException;
 import io.yaoling.common.utils.ObjectConverter;
@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public abstract class AbstractWeixinPayNotifyHandler {
 
+    protected abstract String name();
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractWeixinPayNotifyHandler.class);
 
@@ -37,11 +38,11 @@ public abstract class AbstractWeixinPayNotifyHandler {
 
     public abstract void onNotify(PayNotification notification);
 
-    public String success() {
+    public static String success() {
         return "<xml><return_code>SUCCESS</return_code><return_msg>OK</return_msg></xml>";
     }
 
-    public String fail(String errorMsg) {
+    public static String fail(String errorMsg) {
         return String.format("<xml><return_code>FAIL</return_code><return_msg>%s</return_msg></xml>", errorMsg);
     }
 

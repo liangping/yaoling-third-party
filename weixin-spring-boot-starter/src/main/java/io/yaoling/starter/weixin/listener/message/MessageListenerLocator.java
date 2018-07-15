@@ -1,4 +1,4 @@
-package io.yaoling.starter.weixin.listener;
+package io.yaoling.starter.weixin.listener.message;
 
 import java.util.LinkedList;
 import java.util.List;

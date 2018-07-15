@@ -95,6 +95,18 @@ public class WeixinApi {
         }
     }
 
+    public WeixinUser getWebUser(String openid, String webAccessToken) throws YaolingHttpException {
+        StringBuffer url = new StringBuffer();
+        url.append("https://api.weixin.qq.com/sns/userinfo?lang=zh_CN&access_token=")
+                .append(webAccessToken).append("&openid=").append(openid);
+        WeixinUser user = HttpHelper.objectGet(url.toString(), WeixinUser.class);
+        if (user.getErrcode() == 0) {
+            return user;
+        } else {
+            throw new YaolingHttpException(user.getErrmsg());
+        }
+    }
+
     /**
      * 根据微信授权请求的授权码获取网页AccessToken.
      *
@@ -107,12 +119,6 @@ public class WeixinApi {
     public WebAccessToken getWebAccessToken(String code)
             throws YaolingHttpException {
 
-        String tokenserver = String.format("%s/component/%s/accesstoken?key=%s",
-                config.getAccessTokenHost(),
-                config.getComponentAppId(),
-                config.getAccessTokenKey());
-        String component_access_token = HttpHelper.textGet(tokenserver);
-
         StringBuffer url = new StringBuffer();
         if(WeixinPropertiesConfig.MODE_DIRECT.equalsIgnoreCase(config.getMode())) {
             url.append("https://api.weixin.qq.com/sns/oauth2/access_token?");
@@ -121,6 +127,13 @@ public class WeixinApi {
             url.append("&code=").append(code);
             url.append("&grant_type=authorization_code");
         }else{
+
+            String tokenserver = String.format("%s/component/%s/accesstoken?key=%s",
+                    config.getAccessTokenHost(),
+                    config.getComponentAppId(),
+                    config.getAccessTokenKey());
+            String component_access_token = HttpHelper.textGet(tokenserver);
+
             url.append("https://api.weixin.qq.com/sns/oauth2/component/access_token?");
             url.append("appid=").append(config.getAppid());
             url.append("&code=").append(code);
