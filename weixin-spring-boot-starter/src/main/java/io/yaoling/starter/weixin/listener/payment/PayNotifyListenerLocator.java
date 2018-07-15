@@ -11,14 +11,14 @@ public class PayNotifyListenerLocator {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PayNotifyListenerLocator.class);
 	
-	private Map<String, AbstractWeixinPayNotifyHandler> cached = new ConcurrentHashMap<>();
+	private static Map<String, AbstractWeixinPayNotifyHandler> cached = new ConcurrentHashMap<>();
 	
 	/**
 	 * 获取支付通知handler。
 	 * @param name 支付通知handler的名子
 	 * @return handler
 	 */
-	public AbstractWeixinPayNotifyHandler getHandler(String name){
+	public static AbstractWeixinPayNotifyHandler getHandler(String name){
 		return cached.get(name);
 	}
 	
@@ -26,8 +26,7 @@ public class PayNotifyListenerLocator {
 	 * 注册支付处理handler。
 	 * @param listener handler
 	 */
-	@PostConstruct
-	public void register(AbstractWeixinPayNotifyHandler listener){
+	public static void register(AbstractWeixinPayNotifyHandler listener){
 		if(!cached.containsKey(listener.name())){
 			cached.put( listener.name(), listener );
 			logger.error("Payment handler [{}] has been installed.", listener.name());

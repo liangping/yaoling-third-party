@@ -8,12 +8,18 @@ import io.yaoling.third.pay.PayNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public abstract class AbstractWeixinPayNotifyHandler {
 
     protected abstract String name();
+
+    @PostConstruct
+    private void install(){
+        PayNotifyListenerLocator.register(this );
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractWeixinPayNotifyHandler.class);
 

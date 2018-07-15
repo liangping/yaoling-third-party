@@ -24,16 +24,13 @@ public class PayNotifyListenerController {
     @Autowired
     private WeixinPropertiesConfig config;
 
-    @Autowired
-    PayNotifyListenerLocator locator;
-
     @RequestMapping(value="/weixin/pay/{name}/notify", method=RequestMethod.POST )
     public @ResponseBody String orderNotify(@PathVariable String name, HttpServletRequest request ) {
 
         logger.debug("Recieved a notification at {}", new Date());
         try{
 
-            AbstractWeixinPayNotifyHandler handler = locator.getHandler(name);
+            AbstractWeixinPayNotifyHandler handler = PayNotifyListenerLocator.getHandler(name);
             PayNotification notification = handler.buildNotification(request);
             if(handler.verify(notification, config.getPayKey())) {
                 handler.onNotify(notification);

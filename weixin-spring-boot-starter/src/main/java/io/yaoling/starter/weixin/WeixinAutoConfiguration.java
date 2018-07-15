@@ -51,12 +51,6 @@ public class WeixinAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(PayNotifyListenerLocator.class)
-    public PayNotifyListenerLocator payNotifyListenerLocator(){
-        return new PayNotifyListenerLocator();
-    }
-
-    @Bean
     @ConditionalOnMissingBean(MessageListener.class)
     public ConfigSuccessMessageListener configSuccessMessageListener(){
         return new ConfigSuccessMessageListener();
