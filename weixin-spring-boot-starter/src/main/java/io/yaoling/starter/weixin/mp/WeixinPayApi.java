@@ -61,8 +61,8 @@ public class WeixinPayApi {
 		return HttpHelper.xmlPost(url, input, UnifiedOrderOutput.class);
 	}
 	
-	public MicroPayOutput createMicroPayOrder(PayTransaction transaction, String payKey) throws YaolingHttpException {
-		return createMicroPayOrder(transaction, null, null, payKey);
+	public MicroPayOutput createMicroPayOrder(PayTransaction transaction) throws YaolingHttpException {
+		return createMicroPayOrder(transaction, null, null);
 	}
 
 	/**
@@ -70,11 +70,10 @@ public class WeixinPayApi {
 	 * @param transaction 支付信息
 	 * @param brand 品牌名称
 	 * @param device 设备号或支付人ID
-	 * @param payKey 支付API密钥
 	 * @return 微信支付相关配置
 	 * @throws YaolingHttpException http异常
 	 */
-	public MicroPayOutput createMicroPayOrder(PayTransaction transaction,String brand,String device, String payKey) throws YaolingHttpException {
+	public MicroPayOutput createMicroPayOrder(PayTransaction transaction,String brand,String device) throws YaolingHttpException {
 		MicroPayInput input = new MicroPayInput();
 		//基础参数
 		input.setAppid(config.getAppid());
@@ -88,7 +87,7 @@ public class WeixinPayApi {
 		input.setTotal_fee(transaction.getAmount());
 		input.setAuth_code(transaction.getOrderId());
 		//参数签名
-		input.setSign(SignHelper.sign(input, payKey));
+		input.setSign(SignHelper.sign(input, config.getPayKey()));
 		
 		return createMicroPayOrder(input);
 	}
@@ -98,23 +97,23 @@ public class WeixinPayApi {
 		return HttpHelper.xmlPost(url, input, MicroPayOutput.class);
 	}
 
-	public WeixinPayJsConfigOutput payJsConfig(String timeStamp, String nonceStr, String packageText, String signType, String payKey) throws YaolingHttpException{
+	public WeixinPayJsConfigOutput payJsConfig(String timeStamp, String nonceStr, String packageText) throws YaolingHttpException{
 	
 		Map<String, String> input = new HashMap<>();
 		input.put("appId", config.getAppid());
 		input.put("timeStamp", timeStamp);
 		input.put("nonceStr", nonceStr);
 		input.put("package", packageText);
-		input.put("signType", signType);
+		input.put("signType", config.getPaySignType());
 		
-		String paySign = SignHelper.sign(input, payKey);
+		String paySign = SignHelper.sign(input, config.getPayKey());
 		
 		WeixinPayJsConfigOutput output = new WeixinPayJsConfigOutput();
 		output.setAppId(config.getAppid());
 		output.setNonceStr(nonceStr);
 		output.setTimeStamp(timeStamp);
 		output.setPackageText(packageText);
-		output.setSignType(signType);
+		output.setSignType(config.getPaySignType());
 		
 		output.setPaySign(paySign);
 	

@@ -61,6 +61,10 @@ public class WeixinPropertiesConfig {
      */
     private String payKey;
     /**
+     * 签名类型
+     */
+    private String paySignType="MD5";
+    /**
      * 微信支付商户号
      */
     private String mch_id;
@@ -75,6 +79,14 @@ public class WeixinPropertiesConfig {
 
     public void setNotifyHost(String notifyHost) {
         this.notifyHost = notifyHost;
+    }
+
+    public String getPaySignType() {
+        return paySignType;
+    }
+
+    public void setPaySignType(String paySignType) {
+        this.paySignType = paySignType;
     }
 
     public String getMch_id() {
