@@ -23,12 +23,12 @@ public class WeixinPayApi {
     @Autowired
     protected WeixinPropertiesConfig config;
 
-    public UnifiedOrderOutput createUnifiedOrder(PayTransaction transaction, String payKey) throws YaolingHttpException {
+    public UnifiedOrderOutput createUnifiedOrder(PayTransaction transaction) throws YaolingHttpException {
         String body = String.format("订单编号:%s",transaction.getOrderId());
-		return this.createUnifiedOrder(transaction, payKey, body);
+		return this.createUnifiedOrder(transaction, body);
 	}
 	
-	public UnifiedOrderOutput createUnifiedOrder(PayTransaction transaction, String payKey, String body) throws YaolingHttpException{
+	public UnifiedOrderOutput createUnifiedOrder(PayTransaction transaction, String body) throws YaolingHttpException{
         UnifiedOrderInput input = new UnifiedOrderInput();
         //基础参数
         input.setAppid(config.getAppid());
@@ -42,7 +42,7 @@ public class WeixinPayApi {
         input.setSpbill_create_ip(transaction.getIpAddress());
         input.setOpenid(transaction.getOpenid());
         //生成签名
-        input.setSign(SignHelper.sign(input, payKey));
+        input.setSign(SignHelper.sign(input, config.getPayKey()));
 		
 		return this.createUnifiedOrder(input);
 	}
@@ -86,7 +86,6 @@ public class WeixinPayApi {
 		input.setOut_trade_no(transaction.getId());
 		input.setSpbill_create_ip(transaction.getIpAddress());
 		input.setTotal_fee(transaction.getAmount());
-
 		input.setAuth_code(transaction.getOrderId());
 		//参数签名
 		input.setSign(SignHelper.sign(input, payKey));
