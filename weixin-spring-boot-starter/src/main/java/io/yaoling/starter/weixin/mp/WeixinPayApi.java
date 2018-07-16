@@ -50,14 +50,14 @@ public class WeixinPayApi {
 	
 	public UnifiedOrderQueryOutput orderquery(OrderQueryInput input) throws YaolingHttpException{
 		
-		String url = "https://mp.mch.weixin.qq.com/pay/orderquery";
+		String url = "https://api.mch.weixin.qq.com/pay/orderquery";
 		
 		return HttpHelper.xmlPost(url, input, UnifiedOrderQueryOutput.class);
 	}
 	
 	
 	public UnifiedOrderOutput createUnifiedOrder(UnifiedOrderInput input) throws YaolingHttpException{
-		String url = "https://mp.mch.weixin.qq.com/pay/unifiedorder";
+		String url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 		return HttpHelper.xmlPost(url, input, UnifiedOrderOutput.class);
 	}
 	
@@ -93,7 +93,7 @@ public class WeixinPayApi {
 	}
 
 	public MicroPayOutput createMicroPayOrder(MicroPayInput input) throws YaolingHttpException {
-		String url = "https://mp.mch.weixin.qq.com/pay/micropay";
+		String url = "https://api.mch.weixin.qq.com/pay/micropay";
 		return HttpHelper.xmlPost(url, input, MicroPayOutput.class);
 	}
 
