@@ -27,8 +27,12 @@ public class WeixinPayApi {
         String body = String.format("订单编号:%s",transaction.getOrderId());
 		return this.createUnifiedOrder(transaction, body);
 	}
+
+	public UnifiedOrderOutput createUnifiedOrder(PayTransaction transaction, String body) throws YaolingHttpException {
+		return this.createUnifiedOrder(transaction, body, UnifiedOrderInput.JSAPI);
+	}
 	
-	public UnifiedOrderOutput createUnifiedOrder(PayTransaction transaction, String body) throws YaolingHttpException{
+	public UnifiedOrderOutput createUnifiedOrder(PayTransaction transaction, String body, String trade_type) throws YaolingHttpException{
         UnifiedOrderInput input = new UnifiedOrderInput();
         //基础参数
         input.setAppid(config.getAppid());
@@ -41,6 +45,7 @@ public class WeixinPayApi {
         input.setTotal_fee( transaction.getAmount() );
         input.setSpbill_create_ip(transaction.getIpAddress());
         input.setOpenid(transaction.getOpenid());
+        input.setTrade_type(trade_type);
         //生成签名
         input.setSign(SignHelper.sign(input, config.getPayKey()));
 		
