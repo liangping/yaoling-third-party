@@ -46,6 +46,7 @@ public class WeixinPayApi {
         input.setSpbill_create_ip(transaction.getIpAddress());
         input.setOpenid(transaction.getOpenid());
         input.setTrade_type(trade_type);
+        input.setScene_info(transaction.getSceneInfo());
         //生成签名
         input.setSign(SignHelper.sign(input, config.getPayKey()));
 		
