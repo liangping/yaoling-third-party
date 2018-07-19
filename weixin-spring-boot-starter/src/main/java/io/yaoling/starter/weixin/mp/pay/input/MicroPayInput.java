@@ -99,6 +99,16 @@ public class MicroPayInput {
      */
     private String auth_code;
 
+    private String trade_type = "NATIVE";
+
+    public String getTrade_type() {
+        return trade_type;
+    }
+
+    public void setTrade_type(String trade_type) {
+        this.trade_type = trade_type;
+    }
+
     public String getAppid() {
         return appid;
     }

@@ -133,6 +133,18 @@ public class MicroPayOutput extends XmlOutput{
      * 订单生成时间，格式为yyyyMMddHHmmss，如2009年12月25日9点10分10秒表示为20091225091010。详见时间规则
      */
     private String time_end;
+    /**
+     * 统一支付ＩＤ
+     */
+    public String prepay_id;
+
+    public String getPrepay_id() {
+        return prepay_id;
+    }
+
+    public void setPrepay_id(String prepay_id) {
+        this.prepay_id = prepay_id;
+    }
 
     public String getAppid() {
         return appid;
