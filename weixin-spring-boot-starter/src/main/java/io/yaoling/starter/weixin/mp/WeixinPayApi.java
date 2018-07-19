@@ -135,4 +135,25 @@ public class WeixinPayApi {
 
 		return sb.toString();
 	}
+
+	/**
+	 * 生产微信支付二维码
+	 * @param id 支付单ＩＤ　
+	 * @return
+	 */
+	public String generateQRCode(int id){
+		//二维码
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("appid", this.config.getAppid());
+		map.put("mch_id", this.config.getMch_id());
+		map.put("product_id", String.valueOf(id));
+		map.put("time_stamp", String.valueOf(System.currentTimeMillis() / 1000L));
+		map.put("nonce_str", this.genRandomNumber(5));
+		String queryString = SignHelper.mapToUrlString(map);
+		StringBuffer sb = new StringBuffer();
+		sb.append("weixin://wxpay/bizpayurl?");
+		sb.append(queryString);
+		sb.append("&sign="+SignHelper.sign(map,this.config.getPayKey()));
+		return sb.toString();
+	}
 }
