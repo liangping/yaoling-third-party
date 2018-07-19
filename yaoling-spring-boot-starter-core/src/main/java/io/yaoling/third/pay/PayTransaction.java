@@ -42,4 +42,10 @@ public interface PayTransaction extends PayStatusConstant{
 	 */
 	String getIpAddress();
 
+	/**
+	 * h5场景信息
+	 * @return
+	 */
+	String getSceneInfo();
+
 }
