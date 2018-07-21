@@ -81,11 +81,6 @@ public class MicroPayOutput extends XmlOutput{
      */
     private String sub_is_subscribe;
     /**
-     * 交易类型
-     * 支付类型为MICROPAY(即扫码支付)
-     */
-    private String trade_type = "MICROPAY";
-    /**
      * 付款银行
      * 银行类型，采用字符串类型的银行标识，值列表详见银行类型
      */
@@ -256,14 +251,6 @@ public class MicroPayOutput extends XmlOutput{
 
     public void setSub_is_subscribe(String sub_is_subscribe) {
         this.sub_is_subscribe = sub_is_subscribe;
-    }
-
-    public String getTrade_type() {
-        return trade_type;
-    }
-
-    public void setTrade_type(String trade_type) {
-        this.trade_type = trade_type;
     }
 
     public String getBank_type() {
