@@ -12,6 +12,8 @@ import io.yaoling.starter.weixin.mp.input.CustomTextMessageInput;
 import io.yaoling.starter.weixin.mp.input.MenuInput;
 import io.yaoling.starter.weixin.mp.input.QRTicketInput;
 import io.yaoling.starter.weixin.mp.output.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -251,7 +253,7 @@ public class WeixinApi {
 			throw new YaolingHttpException( e.fillInStackTrace() );
 		}
 		logger.debug( writer.toString() );
-		 HttpHelper.jsonPost(url.toString(), writer.toString());
+		HttpHelper.jsonPost(url.toString(), writer.toString());
 		
 	}
 
@@ -275,46 +277,6 @@ public class WeixinApi {
     }
 
     /**
-     *
-     * 从token服务器获取jsapi ticket
-     *
-     * @return ticket 凭证
-     * @throws YaolingHttpException http异常
-     */
-    public String getJsapiTicket() throws YaolingHttpException {
-        return HttpHelper.textGet(String.format("%s/app/%s/getticket?appid=%s&type=jsapi&key=%s",
-                config.getAccessTokenHost(),
-                config.getComponentAppId(),
-                config.getAppid(),
-                config.getAccessTokenKey()));
-    }
-
-    public Map<String, String> wxJsConfig(String url) throws YaolingHttpException{
-
-        String jsapi_ticket = this.getJsapiTicket();        
-        logger.debug("Genernate jsapi config for url:{} - {}", new Object[]{url, jsapi_ticket});
-
-        Map<String, String> ret = new HashMap<String, String>();
-        String nonce_str = String.valueOf(new Random().nextInt(10000)+10000);
-        String timestamp = String.valueOf(System.currentTimeMillis()/1000);
-        StringBuilder string1 = new StringBuilder();
-
-               //注意这里参数名必须全部小写，且必须有序
-        string1.append("jsapi_ticket=").append(jsapi_ticket).append("&noncestr=").append(nonce_str)
-                .append("&timestamp=").append(timestamp).append("&url=").append(url);
-
-        String signature = SignHelper.sha1Encrypt(string1.toString());
-
-        ret.put("appid", config.getAppid());
-        ret.put("jsapi_ticket", jsapi_ticket);
-        ret.put("nonceStr", nonce_str);
-        ret.put("timestamp", timestamp);
-        ret.put("signature", signature);
-
-        return ret;
-    }
-    
-    /**
      * 创建永久二维码。
      * @param sceneid 场景ID
      * @return 二位码
@@ -325,6 +287,34 @@ public class WeixinApi {
         input.setAction_name(QRTicketInput.ACTION_NAME_QR_LIMIT_STR_SCENE);
     	input.getAction_info().getScene().setScene_str(sceneid);
     	return HttpHelper.objectPost(String.format("https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=%s", getAccessToken()), input, QRTicket.class);
+    }
+
+    public String getJsapiTicket() throws YaolingHttpException {
+        return HttpHelper.textGet(String.format("%s/cgi-bin/%s/getticket?appid=%s&type=jsapi&access_token=%s", new Object[]{"https://api.weixin.qq.com", "ticket", config.getAppid(), this.getAccessToken()}));
+    }
+
+    public Map<String, String> wxJsConfig(String url) throws YaolingHttpException {
+        String jsapi_ticket = this.getJsapiTicket();
+        logger.debug("Genernate jsapi config for url:{} - {}", new Object[]{url, jsapi_ticket});
+        Map<String, String> ret = new HashMap();
+        String nonce_str = String.valueOf((new Random()).nextInt(10000) + 10000);
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000L);
+        StringBuilder string1 = new StringBuilder();
+        String ticket = "";
+        try {
+            JSONObject jsonObject = new JSONObject(jsapi_ticket);
+            ticket = String.valueOf(jsonObject.get("ticket"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        string1.append("jsapi_ticket=").append(ticket).append("&noncestr=").append(nonce_str).append("&timestamp=").append(timestamp).append("&url=").append(url);
+        String signature = SignHelper.sha1Encrypt(string1.toString());
+        ret.put("appid", config.getAppid());
+        ret.put("jsapi_ticket", jsapi_ticket);
+        ret.put("nonceStr", nonce_str);
+        ret.put("timestamp", timestamp);
+        ret.put("signature", signature);
+        return ret;
     }
 
 }
