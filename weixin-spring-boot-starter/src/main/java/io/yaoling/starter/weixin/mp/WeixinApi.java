@@ -47,7 +47,7 @@ public class WeixinApi {
                 this.accesstoken = HttpHelper.objectGet(
                         String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
                                 config.getAppid(), config.getAppsecret()), AccessToken.class);
-                this.accesstoken.setExpired(System.currentTimeMillis()+accesstoken.getExpired()*1000);//更新过期时间
+                this.accesstoken.setExpired(System.currentTimeMillis()+accesstoken.getExpired()*1000-5000);//更新过期时间
             }else {
                 //accesstoken = HttpHelper.textGet(
                 //String.format("%s/app/%s/accesstoken?appid=%s&key=%s",
