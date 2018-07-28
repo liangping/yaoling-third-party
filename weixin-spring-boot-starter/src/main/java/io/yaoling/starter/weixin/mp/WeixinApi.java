@@ -41,13 +41,15 @@ public class WeixinApi {
     }
 
     public String getAccessToken() throws YaolingHttpException {
-        if (accesstoken == null|| accesstoken.getExpired() > System.currentTimeMillis()) {
-
+        //if (accesstoken == null|| accesstoken.getExpired() > System.currentTimeMillis()) {
             if(WeixinPropertiesConfig.CACHE_LOCAL.equalsIgnoreCase(config.getTokenCache())) {
-                this.accesstoken = HttpHelper.objectGet(
+                AccessToken at = HttpHelper.objectGet(
                         String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",
                                 config.getAppid(), config.getAppsecret()), AccessToken.class);
-                this.accesstoken.setExpired(System.currentTimeMillis()+accesstoken.getExpired()*1000-5000);//更新过期时间
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND, (int)at.getExpired()-5);
+                at.setExpired(cal.getTimeInMillis());//更新过期时间
+                this.accesstoken = at;
             }else {
                 //accesstoken = HttpHelper.textGet(
                 //String.format("%s/app/%s/accesstoken?appid=%s&key=%s",
@@ -56,7 +58,7 @@ public class WeixinApi {
                 //appid,
                 //EnvHelper.getTokenServerKey()));
             }
-        }
+        //}
         return accesstoken.getAccessToken();
     }
 
